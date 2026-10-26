@@ -1,0 +1,854 @@
+/* ==========================================================================
+   DEĞİŞKENLER & TEMEL AYARLAR (Redmi Note 11 90Hz AMOLED Optimize)
+   ========================================================================== */
+:root {
+    --bg-primary: #fdf6f9;
+    --bg-secondary: #fceef5;
+    --pink-soft: #f8d7e8;
+    --pink-accent: #e88db4;
+    --pink-deep: #c9638f;
+    --text-main: #4a3540;
+    --text-muted: #7d6370;
+
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.88);
+    --glass-shadow: 0 16px 40px -8px rgba(212, 132, 168, 0.15);
+
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+}
+
+body {
+    position: relative;
+    min-height: 100svh;
+    background: linear-gradient(165deg, #fff9fb 0%, #fcebf3 45%, #f9e2ed 100%);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   ARKA PLAN: CANVAS, İPEK İPLİK SVG VE ORTAM IŞIKLARI
+   ========================================================================== */
+#ambient-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+#silk-thread-svg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100svh;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.85;
+}
+
+.thread-bloom {
+    fill: #e88db4;
+    opacity: 0;
+    transform-origin: center;
+}
+
+.ambient-glow {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(65px);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.65;
+    will-change: transform;
+}
+
+.glow-1 {
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, #ffd1e6 0%, rgba(255, 209, 230, 0) 70%);
+    top: -60px;
+    right: -60px;
+}
+
+.glow-2 {
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, #f7c8e0 0%, rgba(247, 200, 224, 0) 70%);
+    bottom: -80px;
+    left: -80px;
+}
+
+/* ==========================================================================
+   WEB AUDIO MÜZİK KUTUSU BUTONU (Sağ Üst)
+   ========================================================================== */
+.audio-pill {
+    position: fixed;
+    top: 1.15rem;
+    right: 1.15rem;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(232, 141, 180, 0.35);
+    box-shadow: 0 8px 24px rgba(201, 99, 143, 0.14);
+    padding: 0.5rem 0.95rem;
+    border-radius: 999px;
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.25s ease, background 0.3s ease;
+}
+
+.audio-pill:active {
+    transform: scale(0.94);
+}
+
+.audio-bars {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 2.5px;
+    height: 12px;
+}
+
+.audio-bars span {
+    width: 2.5px;
+    height: 4px;
+    background: var(--pink-deep);
+    border-radius: 99px;
+    transition: height 0.2s ease;
+}
+
+.audio-pill.playing .audio-bars span:nth-child(1) {
+    animation: soundWave 0.9s ease-in-out infinite;
+}
+
+.audio-pill.playing .audio-bars span:nth-child(2) {
+    animation: soundWave 0.9s ease-in-out 0.25s infinite;
+}
+
+.audio-pill.playing .audio-bars span:nth-child(3) {
+    animation: soundWave 0.9s ease-in-out 0.5s infinite;
+}
+
+@keyframes soundWave {
+
+    0%,
+    100% {
+        height: 4px;
+    }
+
+    50% {
+        height: 12px;
+    }
+}
+
+/* ==========================================================================
+   GENEL SECTION & TİPOGRAFİ YAPISI
+   ========================================================================== */
+.story-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.section {
+    min-height: 100svh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3.5rem 1.35rem;
+    position: relative;
+}
+
+.content-wrapper {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.eyebrow-tag {
+    display: inline-block;
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--pink-deep);
+    background: rgba(232, 141, 180, 0.14);
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    margin-bottom: 1.1rem;
+}
+
+.serif-title {
+    font-family: var(--font-serif);
+    font-size: clamp(2.25rem, 8vw, 3rem);
+    font-weight: 500;
+    line-height: 1.18;
+    color: var(--text-main);
+    margin-bottom: 1.25rem;
+}
+
+.serif-title em {
+    font-style: italic;
+    color: var(--pink-deep);
+    font-weight: 400;
+}
+
+.serif-heading {
+    font-family: var(--font-serif);
+    font-size: clamp(1.75rem, 6.5vw, 2.25rem);
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--text-main);
+    margin-bottom: 0.85rem;
+}
+
+.subtitle {
+    font-size: 0.98rem;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--text-muted);
+}
+
+.swipe-subhint {
+    font-size: 0.82rem;
+    color: var(--pink-deep);
+    opacity: 0.85;
+    margin-top: -0.2rem;
+}
+
+.body-text {
+    font-size: 0.95rem;
+    font-weight: 400;
+    line-height: 1.72;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.body-text:last-of-type {
+    margin-bottom: 0;
+}
+
+.body-text strong {
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   SECTION 1: HERO & SCROLL İNDİKATÖRÜ
+   ========================================================================== */
+.hero-content {
+    text-align: center;
+    padding-bottom: 2.5rem;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.55rem;
+    opacity: 0;
+}
+
+.scroll-text {
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    opacity: 0.8;
+}
+
+.scroll-line {
+    width: 1.5px;
+    height: 40px;
+    background: rgba(201, 99, 143, 0.22);
+    border-radius: 99px;
+    overflow: hidden;
+    position: relative;
+}
+
+.scroll-dot {
+    width: 100%;
+    height: 14px;
+    background: var(--pink-deep);
+    border-radius: 99px;
+    animation: scrollFlow 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes scrollFlow {
+    0% {
+        transform: translateY(-15px);
+        opacity: 0;
+    }
+
+    40% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+}
+
+/* ==========================================================================
+   SECTION 2: GLASS CARD (Buzlu Cam)
+   ========================================================================== */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: 26px;
+    padding: 2.1rem 1.65rem;
+    position: relative;
+    will-change: transform, opacity;
+}
+
+.card-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pink-deep);
+    margin-bottom: 0.75rem;
+}
+
+/* ==========================================================================
+   SECTION 3: YATAY KAYDIRMALI (SWIPE) İNCE DETAY KARTLARI
+   ========================================================================== */
+.details-section {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.details-section .content-wrapper {
+    padding: 0 1.35rem;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 1.8rem;
+}
+
+.horizontal-carousel {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 1.35rem;
+    padding: 0.5rem 1.35rem 1.25rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.horizontal-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.swipe-card {
+    flex: 0 0 82vw;
+    max-width: 340px;
+    scroll-snap-align: center;
+    padding: 1.85rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.swipe-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pink-deep);
+    margin-bottom: 0.55rem;
+    font-weight: 500;
+}
+
+.swipe-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.65rem;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-top: 0.5rem;
+}
+
+.carousel-dots .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 99px;
+    background: rgba(201, 99, 143, 0.28);
+    transition: width 0.3s ease, background 0.3s ease;
+}
+
+.carousel-dots .dot.active {
+    width: 20px;
+    background: var(--pink-deep);
+}
+
+/* ==========================================================================
+   SECTION 4: DEĞER LİSTESİ (Staggered Glass Pills)
+   ========================================================================== */
+.stagger-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.glass-pill {
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 10px 28px -6px rgba(212, 132, 168, 0.11);
+    border-radius: 20px;
+    padding: 1.35rem 1.4rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.1rem;
+    will-change: transform, opacity;
+}
+
+.pill-number {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--pink-accent);
+    line-height: 1;
+    padding-top: 0.1rem;
+    flex-shrink: 0;
+}
+
+.pill-body h3 {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.35rem;
+}
+
+.pill-body p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   SECTION 5: BUĞULU CAM (Touch-to-Reveal Fog Canvas)
+   ========================================================================== */
+.fog-card-container {
+    position: relative;
+    width: 100%;
+    min-height: 250px;
+    border-radius: 26px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fog-secret-content {
+    padding: 2.2rem 1.65rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+    user-select: none;
+}
+
+.secret-icon {
+    font-size: 1.6rem;
+}
+
+.secret-quote {
+    font-family: var(--font-serif);
+    font-size: 1.28rem;
+    font-style: italic;
+    line-height: 1.48;
+    color: var(--text-main);
+}
+
+.secret-sub {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pink-deep);
+    font-weight: 500;
+}
+
+#fog-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    cursor: grab;
+    /* Mobilde parmakla silerken sayfanın aşağı kaymasını engeller */
+    touch-action: none;
+    transition: opacity 0.8s ease;
+}
+
+#fog-canvas.cleared {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   SECTION 6: ZAMAN KAPSÜLÜ ZARFI & VEDA KARTI
+   ========================================================================== */
+.farewell-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.capsule-box {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 12px 32px -6px rgba(212, 132, 168, 0.14);
+    border-radius: 22px;
+    overflow: hidden;
+}
+
+.envelope-btn {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 1.25rem 1.35rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+    cursor: pointer;
+    color: var(--text-main);
+    font-family: var(--font-sans);
+}
+
+.envelope-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: rgba(232, 141, 180, 0.16);
+    color: var(--pink-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.envelope-btn[aria-expanded="true"] .envelope-icon-wrap {
+    background: var(--pink-deep);
+    color: #fff;
+    transform: rotate(-6deg) scale(1.05);
+}
+
+.envelope-svg {
+    width: 22px;
+    height: 22px;
+}
+
+.envelope-text-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.envelope-title {
+    font-family: var(--font-serif);
+    font-size: 1.22rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.envelope-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.capsule-letter {
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.letter-inner {
+    padding: 0 1.4rem 1.5rem;
+    border-top: 1px dashed rgba(201, 99, 143, 0.25);
+    padding-top: 1.15rem;
+}
+
+.letter-inner h4 {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    color: var(--pink-deep);
+    margin-bottom: 0.55rem;
+}
+
+.letter-inner p {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+}
+
+.letter-inner p:last-child {
+    margin-bottom: 0;
+}
+
+/* Ana Veda Kartı */
+.farewell-card {
+    text-align: center;
+    padding: 2.35rem 1.7rem;
+}
+
+.lotus-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.wish-orb {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 1px solid rgba(232, 141, 180, 0.45);
+    background: radial-gradient(circle, #ffffff 0%, #fde6f0 100%);
+    color: var(--pink-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(232, 141, 180, 0.35);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    animation: gentlePulse 3s ease-in-out infinite;
+}
+
+.wish-orb:active {
+    transform: scale(0.92);
+}
+
+.heart-sparkle {
+    width: 26px;
+    height: 26px;
+}
+
+.orb-hint {
+    font-size: 0.72rem;
+    color: var(--pink-deep);
+    letter-spacing: 0.08em;
+    margin-top: 0.55rem;
+    opacity: 0.85;
+}
+
+@keyframes gentlePulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(232, 141, 180, 0.3);
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 34px rgba(232, 141, 180, 0.6);
+        transform: scale(1.05);
+    }
+}
+
+.signature {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    font-style: italic;
+    color: var(--pink-deep);
+    margin-top: 1.35rem;
+}
+
+/* ==========================================================================
+   TABLET & MASAÜSTÜ UYUMLULUĞU
+   ========================================================================== */
+@media (min-width: 768px) {
+    .content-wrapper {
+        max-width: 540px;
+    }
+
+    .horizontal-carousel {
+        justify-content: center;
+        flex-wrap: wrap;
+        overflow-x: visible;
+    }
+
+    .swipe-card {
+        flex: 0 0 250px;
+    }
+
+    .carousel-dots {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   ŞİFRE EKRANI (Password Overlay)
+   ========================================================================== */
+.password-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100svh;
+    background: linear-gradient(165deg, rgba(253, 246, 249, 0.85) 0%, rgba(252, 235, 243, 0.9) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.35rem;
+}
+
+.password-card {
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+    padding: 2.75rem 1.8rem;
+    box-shadow: 0 20px 40px -10px rgba(212, 132, 168, 0.25);
+}
+
+.password-icon {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 1.25rem auto;
+    color: var(--pink-deep);
+    background: rgba(232, 141, 180, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.input-group {
+    position: relative;
+    margin-top: 1.6rem;
+    width: 100%;
+}
+
+.input-group input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--glass-border);
+    padding: 1rem 3.5rem 1rem 1.5rem;
+    border-radius: 99px;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    /* 16px altı mobilde zoom yapar, 1rem ideal */
+    color: var(--text-main);
+    outline: none;
+    box-shadow: inset 0 2px 5px rgba(212, 132, 168, 0.05);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: var(--pink-accent);
+    box-shadow: 0 0 15px rgba(232, 141, 180, 0.25);
+    background: #fff;
+}
+
+.input-group input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+.input-group button {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--pink-deep);
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.25s ease, background 0.3s ease;
+    box-shadow: 0 4px 12px rgba(201, 99, 143, 0.3);
+}
+
+.input-group button:active {
+    transform: translateY(-50%) scale(0.9);
+}
+
+.input-group button svg {
+    width: 20px;
+    height: 20px;
+}
+
+.error-msg {
+    color: #d9534f;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-top: 1rem;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.error-msg.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
